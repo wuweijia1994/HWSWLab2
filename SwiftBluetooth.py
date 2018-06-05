@@ -16,10 +16,12 @@ class SwiftRobotArm:
             print("Could not connect to the robot arm.")
 
     def resetArm(self):
+        # self.attachMotors()
+        self.pumpStop()
         self.move(100, 0, 150)
         self.rotateMotor(3, 75)
 
-    def move(self, arm_x, arm_y, arm_z = 150, arm_speed = 1000):
+    def move(self, arm_x, arm_y, arm_z = 150, arm_speed = 2000):
         cmd = '#n G0 X' + str(arm_x) + ' Y' + str(arm_y) +' Z' + str(arm_z) + ' F' + str(arm_speed) + '\n'
         self.ser.write(cmd.encode())
         line = self.ser.readline()

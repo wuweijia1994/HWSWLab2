@@ -10,13 +10,21 @@ def getEggPosition(image):
 
     # Display the resulting frame
     thresh = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
-    im2,contours,hierarchy = cv2.findContours(thresh, 1, 2)
+    im2,contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     if(len(contours) > 0):
-        cnt = contours[0]
-        M = cv2.moments(cnt)
-        cx = int(M['m10']/M['m00'])
-        cy = int(M['m01']/M['m00'])
-        return cx, cy
+        camera_x = []
+        camera_y = []
+        for index in range (len(contours)):
+            cnt= contours[index]
+            M = cv2.moments(cnt)
+            #print( M )
+            cx = int(M['m10']/M['m00'])
+            cy = int(M['m01']/M['m00'])
+
+            camera_x.append(cx)
+            camera_y.append(cy)
+
+        return camera_x, camera_y
     else:
         print("Not Found!")
         return None, None
@@ -43,4 +51,5 @@ def eggPositionByCamera(camera):
 
 def xyMapping(x, y):
 
-    return int(y * 0.45893878 + 42.01635299), int(x * 0.50576957 -173)
+    # return int(y * 0.45893878 + 42.01635299), int(x * 0.50576957 -173)0.58324222, -184.05565132
+    return int(y * 0.56252352 + 6.54381175), int(x * 0.58324222 - 184.05565132)

@@ -1,9 +1,11 @@
+import sys
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
 # Create a VideoCapture object
-cap = cv2.VideoCapture('eggs.mp4')
+cap = cv2.VideoCapture(1)
 
 # Check if camera opened successfully
 if (cap.isOpened() == False):
@@ -27,9 +29,9 @@ while(True):
         thresh = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
         im2,contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         thresh=cv2.cvtColor(thresh,cv2.COLOR_GRAY2RGB)
-        
+
         number_of_eggs = len(contours)
-        
+
         for i in range (number_of_eggs):
             cnt= contours[i]
             M = cv2.moments(cnt)

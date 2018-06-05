@@ -20,21 +20,47 @@ if __name__ == "__main__":
             print("Egg detection is done.")
             break
     cx, cy = egg.eggPositionByCamera(1)
-    ax, ay = egg.xyMapping(cx, cy)
-    print(ax, ay)
-    arm.move(ax, ay)
-    arm.move(ax, ay, 100)
-    arm.pumpWorking()
-    time.sleep(2)
-    arm.move(ax, ay, 150)
-    time.sleep(5)
+    print(cx, cy)
 
-    arm.move(ax, ay, 100)
-    time.sleep(2)
-    arm.pumpStop()
-    arm.resetArm()
-    while 1:
-        pass
+    for index in range(len(cx)):
+        ax, ay = egg.xyMapping(cx[index], cy[index])
+        print(cx[index], cy[index])
+        print(ax, ay)
+        arm.move(ax, ay)
+        time.sleep(2)
+
+        arm.move(ax, ay, 98)
+        arm.pumpWorking()
+        time.sleep(2)
+
+        arm.move(ax, ay, 250)
+        arm.move(0, 250, 250, 1000)
+        arm.move(0, 250, 100)
+        time.sleep(7)
+
+        arm.pumpStop()
+        arm.move(0, 250, 150)
+        arm.resetArm()
+        # time.sleep(5)
+        print("finished.")
+        time.sleep(3)
+
+
+    # ax, ay = egg.xyMapping(cx, cy)
+    # print(ax, ay)
+    # arm.move(ax, ay)
+    # arm.move(ax, ay, 100)
+    # arm.pumpWorking()
+    # time.sleep(2)
+    # arm.move(ax, ay, 150)
+    # time.sleep(5)
+    #
+    # arm.move(ax, ay, 100)
+    # time.sleep(2)
+    # arm.pumpStop()
+    # arm.resetArm()
+    # while 1:
+    #     pass
 
 
 # # configure the serial connections (the parameters differs on the device you are connecting to)
