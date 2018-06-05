@@ -4,8 +4,10 @@ from time import sleep
 import egg
 # import cv2
 import SwiftBluetooth
+import RobotArmDetection as armdetect
 
 import time
+import math
 import serial
 
 if __name__ == "__main__":
@@ -22,28 +24,35 @@ if __name__ == "__main__":
     cx, cy = egg.eggPositionByCamera(1)
     print(cx, cy)
 
-    for index in range(len(cx)):
-        ax, ay = egg.xyMapping(cx[index], cy[index])
-        print(cx[index], cy[index])
-        print(ax, ay)
-        arm.move(ax, ay)
+    while 1:
+        # cx, cy = egg.eggPositionByCamera(1)
+        # ax, ay = egg.xyMapping(cx[index], cy[index])
+        ax, ay = armdetect.armPositionByCamera(1)
+        cx_new, cy_new = egg.heightFixed(cx[0], cy[0])
+        print(ax - cx_new, ay - cy_new)
+        # print(cx[index], cy[index])
+        # print(ax, ay)
+        current_arm_x, current_arm_y, _ = arm.getEndPosition()
+        current_arm_x = int(float(current_arm_x))
+        current_arm_y = int(float(current_arm_y))
+        while ax - cx_new >
+        arm.move(current_arm_x + cx_new - ax, cy_new - ay)
         time.sleep(2)
 
-        arm.move(ax, ay, 98)
-        arm.pumpWorking()
-        time.sleep(2)
-
-        arm.move(ax, ay, 250)
-        arm.move(0, 250, 250, 1000)
-        arm.move(0, 250, 100)
-        time.sleep(7)
-
-        arm.pumpStop()
-        arm.move(0, 250, 150)
-        arm.resetArm()
+        # arm.move(ax, ay, 98)
+        # arm.pumpWorking()
+        # time.sleep(2)
+        #
+        # arm.move(ax, ay, 250)
+        # arm.move(0, 250, 250, 1000)
+        # arm.move(0, 250, 100)
         # time.sleep(5)
-        print("finished.")
-        time.sleep(3)
+        #
+        # arm.pumpStop()
+        # arm.move(0, 250, 150)
+        # arm.resetArm()
+        # # time.sleep(5)
+        # print("finished.")
 
 
     # ax, ay = egg.xyMapping(cx, cy)

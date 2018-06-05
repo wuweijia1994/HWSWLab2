@@ -52,4 +52,12 @@ def eggPositionByCamera(camera):
 def xyMapping(x, y):
 
     # return int(y * 0.45893878 + 42.01635299), int(x * 0.50576957 -173)0.58324222, -184.05565132
-    return int(y * 0.56252352 + 6.54381175), int(x * 0.58324222 - 184.05565132)
+    return int(y * 0.6952352 - 51.54381175), int(x * 0.58324222 - 188.05565132)
+
+def heightFixed(x, y):
+    x_offset = 400
+    y_offset = 480
+
+    x_new = x + (x - x_offset) * 7.8 / 38
+    y_new = y + (y - y_offset) * 7.8 / 38
+    return x_new, y_new
